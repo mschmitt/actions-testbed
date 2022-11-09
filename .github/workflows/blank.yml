@@ -28,8 +28,10 @@ jobs:
 
       - name: Install SSH identity
         run: install -D -m 600 <(echo "${{ secrets.SSH_KEY }}") ~/.ssh/id
+      - name: Test
+        run: touch ~/.ssh/foo
       - name: Debug
-        run: ls -la $HOME/.ssh
+        run: ls -la ~/.ssh
       - name: Start agent
         run: ssh-agent -a $SSH_AUTH_SOCK
       - name: Add identity
