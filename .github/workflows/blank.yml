@@ -32,9 +32,14 @@ jobs:
       - name: Deploy SSH identity
         run: install -D -m 600 <(echo "${{ secrets.SSH_KEY }}") ~/.ssh/id
       - name: Start agent
-        run: ssh-agent -a $SSH_AUTH_SOCK
+        run: ssh-agent -a $SSH_AUTH_SOCK > /tmp/agent.env
       - name: Add identity
         run: echo "${{ secrets.SSH_PASSPHRASE }}" | ssh-add ~/.ssh/id
       - name: List identities
         run:  ssh-add -l
+      - name: Kill agent
+        run: |
+          source /tmp/agent.env
+          ssh-agent -k
+        
       
