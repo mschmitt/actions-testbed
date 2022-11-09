@@ -31,7 +31,7 @@ jobs:
       - name: Debug
         run: ls -la $HOME/.ssh
       - name: Start agent
-        run: ssh-agent -a "$SSH_AUTH_SOCK"
+        run: ssh-agent -a $SSH_AUTH_SOCK
       - name: Add identity
         run: echo "${{ secrets.SSH_PASSPHRASE }}" | ssh-add ~/.ssh/id
       - name: List identities
