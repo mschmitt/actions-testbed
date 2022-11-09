@@ -42,7 +42,7 @@ jobs:
           cat > ~/.ssh/config <<-Here
           StrictHostKeyChecking accept-new
           IdentityFile ~/.ssh/id
-          IdeneitiesOnly yes
+          IdentitiesOnly yes
           User ${{ secrets.USER }}
           Host remote
           Hostname ${{ secrets.SSH_HOST }}
