@@ -37,6 +37,19 @@ jobs:
         run: echo "${{ secrets.SSH_PASSPHRASE }}" | ssh-add ~/.ssh/id
       - name: List identities
         run:  ssh-add -l
+      - name: Create ssh config
+        run: |
+          cat > ~.ssh/config <<-Here
+          StrictHostKeyChecking accept-new
+          IdentityFile ~/.ssh/id
+          IdeneitiesOnly yes
+          User "${{ secrets.USER }}"
+          Host remote
+          Hostname "${{ secrets.SSH_HOST }}"
+          Port "${{ secrets.SSH_PORT }}"
+          Here
+      - name: Show config
+        run: cat ~/.ssh/config
       - name: Kill agent
         run: |
           source /tmp/agent.env
