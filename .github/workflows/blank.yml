@@ -39,7 +39,7 @@ jobs:
         run:  ssh-add -l
       - name: Create ssh config
         run: |
-          cat > ~.ssh/config <<-Here
+          cat > ~/.ssh/config <<-Here
           StrictHostKeyChecking accept-new
           IdentityFile ~/.ssh/id
           IdeneitiesOnly yes
