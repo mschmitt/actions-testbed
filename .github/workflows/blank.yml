@@ -43,7 +43,7 @@ jobs:
           StrictHostKeyChecking accept-new
           IdentityFile ~/.ssh/id
           IdentitiesOnly yes
-          User ${{ secrets.USER }}
+          User ${{ secrets.SSH_USER }}
           Host remote
           Hostname ${{ secrets.SSH_HOST }}
           Port ${{ secrets.SSH_PORT }}
