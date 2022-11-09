@@ -21,11 +21,16 @@ jobs:
     runs-on: ubuntu-22.04
     env:
       SSH_AUTH_SOCK: /tmp/agent.socket
+      DEBIAN_FRONTEND: noninteractive
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       #- uses: actions/checkout@v3
-      - name: Install SSH identity
+      - name: Install packages
+        run: |
+          apt-get update
+          apt-get install -y openssh-client rsync
+      - name: Deploy SSH identity
         run: install -D -m 600 <(echo "${{ secrets.SSH_KEY }}") ~/.ssh/id
       - name: Start agent
         run: ssh-agent -a $SSH_AUTH_SOCK
