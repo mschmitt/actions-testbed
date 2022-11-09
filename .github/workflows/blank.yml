@@ -20,18 +20,13 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-22.04
     env:
-      SSH_AUTH_SOCK: $HOME/.ssh/agent.socket
+      SSH_AUTH_SOCK: /tmp/agent.socket
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-
+      #- uses: actions/checkout@v3
       - name: Install SSH identity
         run: install -D -m 600 <(echo "${{ secrets.SSH_KEY }}") ~/.ssh/id
-      - name: Test
-        run: touch ~/.ssh/foo
-      - name: Debug
-        run: ls -la ~/.ssh
       - name: Start agent
         run: ssh-agent -a $SSH_AUTH_SOCK
       - name: Add identity
