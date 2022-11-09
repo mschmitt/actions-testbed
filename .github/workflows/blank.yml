@@ -27,5 +27,7 @@ jobs:
 
       - name: Install SSH identity
         run:  install -D -m 600 <(echo "$SSH_KEY") ~/.ssh/id
+      - name: Foo
+        run: printf "Key:\n\n%s" "$SSH_KEY"
       - name: Confirm SSH identity
         run: cat ~/.ssh/id
