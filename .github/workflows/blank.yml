@@ -30,5 +30,6 @@ jobs:
       - name: Start agent and add key
         run: |
           eval $(ssh-agent)
-          echo "${{ secrets.SSH_PASSPHRASE }}" | ssh-add -l
+          echo "${{ secrets.SSH_PASSPHRASE }}" | ssh-add ~/.ssh/id
+          ssh-add -l
       
