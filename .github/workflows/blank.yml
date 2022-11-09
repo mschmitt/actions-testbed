@@ -26,8 +26,6 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Install SSH identity
-        run:  install -D -m 600 <(echo "$SSH_KEY") ~/.ssh/id
-      - name: Foo
-        run: printf "Key:\n\n%s" "$SSH_KEY"
+        run:  install -D -m 600 <(echo "${{ secrets.SSH_KEY }}") ~/.ssh/id
       - name: Confirm SSH identity
         run: cat ~/.ssh/id
