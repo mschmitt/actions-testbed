@@ -43,13 +43,15 @@ jobs:
           StrictHostKeyChecking accept-new
           IdentityFile ~/.ssh/id
           IdeneitiesOnly yes
-          User "${{ secrets.USER }}"
+          User ${{ secrets.USER }}
           Host remote
-          Hostname "${{ secrets.SSH_HOST }}"
-          Port "${{ secrets.SSH_PORT }}"
+          Hostname ${{ secrets.SSH_HOST }}
+          Port ${{ secrets.SSH_PORT }}
           Here
       - name: Show config
         run: cat ~/.ssh/config
+      - name: Test rsync
+        run: rsync --exclude '.*' --recursive --verbose . 'remote:'
       - name: Kill agent
         run: |
           source /tmp/agent.env
