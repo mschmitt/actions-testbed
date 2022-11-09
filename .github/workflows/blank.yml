@@ -27,8 +27,8 @@ jobs:
 
       - name: Install SSH identity
         run:  install -D -m 600 <(echo "${{ secrets.SSH_KEY }}") ~/.ssh/id
-      - name: Start agent
-        run: eval $(ssh-agent)
-      - name: Add identity to agent
-        run: echo "${{ secrets.SSH_PASSPHRASE }}" | ssh-add -l
+      - name: Start agent and add key
+        run: |
+          eval $(ssh-agent)
+          echo "${{ secrets.SSH_PASSPHRASE }}" | ssh-add -l
       
