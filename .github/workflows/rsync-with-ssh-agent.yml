@@ -39,7 +39,7 @@ jobs:
       - name: Show config
         run: cat ~/.ssh/config
       - name: Test rsync
-        run: rsync --exclude '.*' --recursive --delete-excluded --verbose . 'remote:/deploy/path\ with\ blank'
+        run: rsync --exclude '.*' --recursive --delete-excluded --verbose . 'remote:testarea/deploy'
       - name: Kill agent
         run: |
           source /tmp/agent.env
