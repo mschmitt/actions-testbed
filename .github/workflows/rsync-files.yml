@@ -35,7 +35,6 @@ jobs:
           User ${{ secrets.SSH_USER }}
           Host remote
           Hostname ${{ secrets.SSH_HOST }}
-          Port ${{ secrets.SSH_PORT }}
           Here
       - name: Show config
         run: cat ~/.ssh/config
