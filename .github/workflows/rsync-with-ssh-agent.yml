@@ -33,7 +33,7 @@ jobs:
           Port ${SSH_PORT:-22}
           Here
       - name: Debug config
-          run: cat ~/.ssh/config
+        run: cat ~/.ssh/config
       - name: Add identity
         run: |
           source ~/.ssh/agent.env
