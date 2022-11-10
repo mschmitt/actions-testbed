@@ -41,8 +41,9 @@ jobs:
       - name: Transfer files
         run: |
           source ~/.ssh/agent.env
-          rsync --exclude '.*' --recursive --delete-excluded --verbose . 'remote:'
+          rsync --exclude '.*' --recursive --delete-excluded --verbose . 'remotex:'
       - name: Kill agent
+        if: success() || failure()
         run: |
           source ~/.ssh/agent.env
           ssh-agent -k
