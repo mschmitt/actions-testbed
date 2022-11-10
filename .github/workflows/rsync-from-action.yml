@@ -1,4 +1,4 @@
-name: rsync with SSH agent
+name: rsync with SSH agent (from action)
 
 on:
   #push:
