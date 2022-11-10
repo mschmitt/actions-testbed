@@ -1,0 +1,19 @@
+name: rsync with SSH agent
+
+on:
+  #push:
+  #  branches: [ "main" ]
+  #pull_request:
+  #  branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  rsync_with_ssh_agent:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install packages
+        run: |
+          sudo apt-get update
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y openssh-client rsync
+      - uses: mschmitt/rsync-with-ssh-agent@HEAD
