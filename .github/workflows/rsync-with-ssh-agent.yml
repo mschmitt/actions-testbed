@@ -19,12 +19,11 @@ jobs:
       - name: Save SSH id to file
         run: install -D -m 600 <(echo "${{ secrets.SSH_KEY }}") ~/.ssh/id
       - name: Start agent
-        run: ssh-agent -a ~/.ssh/agent.socket > /tmp/agent.env
+        run: ssh-agent -a ~/.ssh/agent.socket > ~/.ssh/agent.env
       - name: Create ssh config
         run: |
           cat > ~/.ssh/config <<-Here
           StrictHostKeyChecking accept-new
-          IdentityAgent ~/.ssh/agent.socket
           IdentityFile ~/.ssh/id
           IdentitiesOnly yes
           User ${{ secrets.SSH_USER }}
@@ -32,13 +31,17 @@ jobs:
           Hostname ${{ secrets.SSH_HOST }}
           Here
       - name: Add identity
-        run: echo "${{ secrets.SSH_PASSPHRASE }}" | ssh-add ~/.ssh/id
+        run: |
+          source ~/.ssh/agent.env
+          echo "${{ secrets.SSH_PASSPHRASE }}" | ssh-add ~/.ssh/id
       - name: List identities
-        run:  ssh-add -l
-      - name: Show config
-        run: cat ~/.ssh/config
+        run:  |
+          source ~/.ssh/agent.env
+          ssh-add -l
       - name: Transfer files
-        run: rsync --exclude '.*' --recursive --delete-excluded --verbose . 'remote:'
+        run: |
+          source ~/.ssh/agent.env
+          rsync --exclude '.*' --recursive --delete-excluded --verbose . 'remote:'
       - name: Kill agent
         run: |
           source /tmp/agent.env
