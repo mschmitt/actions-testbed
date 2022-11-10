@@ -22,6 +22,7 @@ jobs:
         run: ssh-agent -a ~/.ssh/agent.socket > ~/.ssh/agent.env
       - name: Create ssh config
         run: |
+          SSH_PORT=${{ secrets.SSH_PORT }}
           cat > ~/.ssh/config <<-Here
           StrictHostKeyChecking accept-new
           IdentityFile ~/.ssh/id
@@ -29,7 +30,10 @@ jobs:
           User ${{ secrets.SSH_USER }}
           Host remote
           Hostname ${{ secrets.SSH_HOST }}
+          Port ${SSH_PORT:-22}
           Here
+      - name: Debug config
+          run: cat ~/.ssh/config
       - name: Add identity
         run: |
           source ~/.ssh/agent.env
