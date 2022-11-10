@@ -11,7 +11,7 @@ jobs:
   rsync_with_ssh_agent:
     runs-on: ubuntu-22.04
     env:
-      SSH_AUTH_SOCK: /tmp/agent.socket
+      SSH_AUTH_SOCK: ${{ runner.temp }}/agent.socket
     steps:
       - uses: actions/checkout@v3
       - name: Install packages
