@@ -1,4 +1,4 @@
-name: rsync files with SSH agent
+name: rsync with SSH agent
 
 on:
   push:
