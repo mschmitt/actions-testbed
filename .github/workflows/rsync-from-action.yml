@@ -25,3 +25,4 @@ jobs:
             SSH_PORT: ${{ secrets.SSH_PORT }}
             RSYNC_REMOTE_PATH: .
             RSYNC_LOCAL_PATH: .
+            RSYNC_OPTIONS: ''
